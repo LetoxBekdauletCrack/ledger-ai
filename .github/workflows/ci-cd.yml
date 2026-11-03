@@ -11,6 +11,11 @@ jobs:
     name: Run Unit, Integration & Playwright E2E Tests
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      DATABASE_URL: "file:./dev.db"
+      NEXTAUTH_SECRET: "ci-test-secret-key-at-least-32-chars-long"
+      NEXTAUTH_URL: "http://localhost:3000"
+      PORT: 3000
 
     steps:
       - name: Checkout Repository
@@ -30,27 +35,18 @@ jobs:
           npx prisma generate
           npx prisma db push
           npx tsx prisma/seed.ts
-        env:
-          DATABASE_URL: "file:./dev.db"
 
       - name: Run Vitest Integration Tests
         run: npm run test
 
       - name: Build Next.js Application
         run: npm run build
-        env:
-          DATABASE_URL: "file:./dev.db"
-          NEXTAUTH_SECRET: "ci-test-secret-key-at-least-32-chars-long"
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps chromium
 
       - name: Run Playwright End-to-End Suite
         run: npx playwright test
-        env:
-          DATABASE_URL: "file:./dev.db"
-          PORT: 3000
-          NEXTAUTH_SECRET: "ci-test-secret-key-at-least-32-chars-long"
 
       - name: Upload Test Artifacts
         if: always()
@@ -79,4 +75,3 @@ jobs:
           echo "Zero-downtime healthcheck verified."
         env:
           CLOUD_DEPLOY_TOKEN: ${{ secrets.CLOUD_DEPLOY_TOKEN || 'simulated-token' }}
-
