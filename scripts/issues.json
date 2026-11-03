@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "title": "Setup Next.js, Tailwind, shadcn/ui, and Hono backend structure",
+    "labels": ["mvp"],
+    "body": "### Objective\nInitialize full-stack project architecture with Next.js App Router, Tailwind CSS, shadcn/ui component styling, TypeScript, and unified Hono backend server architecture.\n\n### Acceptance Criteria\n- Next.js 14+ App Router structure initialized.\n- Tailwind CSS and theme tokens configured for dark-mode fintech aesthetic.\n- Hono server initialized with modular route structure.\n- Monolithic / unified dev scripts configured in package.json."
+  },
+  {
+    "id": 2,
+    "title": "Generate v0.dev style Fintech Dashboard layout (Sidebar, Stat Cards)",
+    "labels": ["mvp"],
+    "body": "### Objective\nCraft an elite dark-mode fintech dashboard layout inspired by modern financial SaaS products (Mercury, Ramp, Linear).\n\n### Acceptance Criteria\n- Collapsible/responsive sidebar navigation (Dashboard, Transactions, Analytics, Budgets, Settings).\n- Header with active workspace, user profile avatar, and theme toggle.\n- Metric stat cards: Total Balance, Monthly Inflow, Monthly Outflow, Net Savings Rate, and Anomaly Alert Counter.\n- Micro-interactions, subtle borders (`border-border`), and modern glowing accent gradients."
+  },
+  {
+    "id": 3,
+    "title": "Build Transaction Table & Analytics Charts UI",
+    "labels": ["mvp"],
+    "body": "### Objective\nDevelop interactive transaction table with category pills, status indicators, search/filter, and rich analytical charts using Recharts.\n\n### Acceptance Criteria\n- Transaction table supporting date, merchant/description, category badge, amount (+/-), and anomaly flag.\n- Cash flow area chart / bar chart comparing income vs expenses over time.\n- Expense category breakdown donut chart.\n- Quick-action dialog to add new manual transactions."
+  },
+  {
+    "id": 4,
+    "title": "Implement mock-service.ts for finance data",
+    "labels": ["mvp"],
+    "body": "### Objective\nProvide comprehensive realistic financial mock data and client service layer for offline development and testing fallback.\n\n### Acceptance Criteria\n- `mock-service.ts` created with realistic transaction records, recurring subscriptions, and category aggregates.\n- Realistic distributions: Groceries, Utilities, Salary, Investments, Entertainment, Dining, Transport.\n- Utility functions to query, filter, and calculate metrics."
+  },
+  {
+    "id": 5,
+    "title": "Define OpenAPI contract (openapi.yml)",
+    "labels": ["mvp"],
+    "body": "### Objective\nFormally specify all LedgerAI backend REST APIs using the OpenAPI 3.0 specification.\n\n### Acceptance Criteria\n- `openapi.yml` document created.\n- Endpoints specified for auth, transactions (CRUD), analytics summary, categories, budgets, and AI anomaly detection.\n- Request schemas, response bodies, and error status codes fully defined."
+  },
+  {
+    "id": 6,
+    "title": "Initialize Hono backend & In-Memory storage controllers",
+    "labels": ["mvp"],
+    "body": "### Objective\nBuild high-performance Hono API server with structured routing, input validation (zod), and in-memory fallback controllers.\n\n### Acceptance Criteria\n- Hono app mounted with CORS, logger, and error handling middleware.\n- Route controllers for `/api/transactions`, `/api/analytics`, `/api/budgets`, and `/api/ai`.\n- In-memory data store supporting full CRUD operations matching OpenAPI contract."
+  },
+  {
+    "id": 7,
+    "title": "Setup Prisma schema with SQLite provider & seed 500 transactions",
+    "labels": ["mvp"],
+    "body": "### Objective\nConfigure persistent data layer using Prisma ORM with SQLite provider, and generate realistic seed dataset of 500 transactions.\n\n### Acceptance Criteria\n- `prisma/schema.prisma` defined with User, Account, Transaction, Category, Budget, and AnomalyAlert models.\n- Migration generated and applied to SQLite database (`dev.db`).\n- `prisma/seed.ts` implemented generating 500 varied, date-distributed financial transactions."
+  },
+  {
+    "id": 8,
+    "title": "Connect Frontend to Hono Backend API (replace mocks)",
+    "labels": ["mvp"],
+    "body": "### Objective\nWire Next.js frontend client components and hooks directly to the live Hono backend API endpoints.\n\n### Acceptance Criteria\n- Replace static mock calls with type-safe fetchers hitting `/api/transactions`, `/api/analytics`, etc.\n- Optimistic updates or fast revalidation on creating transactions.\n- Graceful fallback and health check integration."
+  },
+  {
+    "id": 9,
+    "title": "Implement AI Categorization & Anomaly Detection API endpoint",
+    "labels": ["mvp"],
+    "body": "### Objective\nImplement intelligent rule-based & statistical heuristic engine for auto-categorization and spending anomaly detection.\n\n### Acceptance Criteria\n- Endpoint `/api/ai/suggest-category` predicting category from merchant name & description.\n- Endpoint `/api/ai/detect-anomalies` flagging transactions with unusual spending deviation (z-score / spending multiplier > 2.5x mean).\n- Budget alert triggers when spending exceeds threshold limits."
+  },
+  {
+    "id": 10,
+    "title": "Add loading states, error boundaries, and toast notifications",
+    "labels": ["mvp"],
+    "body": "### Objective\nProvide production-grade UX with polished skeleton loaders, graceful error boundary handling, and accessible toast notifications.\n\n### Acceptance Criteria\n- Skeleton loader components for stat cards, chart containers, and transaction rows.\n- Global React Error Boundary displaying friendly recovery UI.\n- Toast notification system triggered on transaction creation, update, deletion, and alerts."
+  },
+  {
+    "id": 11,
+    "title": "Write Hono Integration Tests (Vitest) for API endpoints",
+    "labels": ["mvp"],
+    "body": "### Objective\nImplement comprehensive automated integration test suite with Vitest validating Hono API endpoints and business logic.\n\n### Acceptance Criteria\n- Vitest configured with TypeScript support.\n- Integration tests covering Transaction CRUD, Analytics calculations, AI categorization, and Anomaly detection.\n- 100% test pass rate verifying status codes, payload shapes, and boundary conditions."
+  },
+  {
+    "id": 12,
+    "title": "Implement User Authentication (NextAuth credentials slice)",
+    "labels": ["mvp"],
+    "body": "### Objective\nImplement robust authentication slice using NextAuth / Auth credentials flow with password hashing and session tokens.\n\n### Acceptance Criteria\n- Login and Registration views styled with dark-mode fintech UI.\n- Password hashing (bcryptjs/argon2/webcrypto) and session token management.\n- Protected API routes and client-side session context."
+  },
+  {
+    "id": 13,
+    "title": "Playwright E2E Test: User Login and Registration Flow (Must use Playwright)",
+    "labels": ["e2e-test"],
+    "body": "### Objective\nPlaywright End-to-End Test for user authentication: registration, credentials validation, login redirect, and session persistence.\n\n### Acceptance Criteria\n- Playwright test file covering user registration flow.\n- Validation of login failure on bad credentials and success on valid credentials.\n- Test executes headless and passes in automated CI/CD environment."
+  },
+  {
+    "id": 14,
+    "title": "Playwright E2E Test: Add Income and Expense Transactions (Must use Playwright)",
+    "labels": ["e2e-test"],
+    "body": "### Objective\nPlaywright End-to-End Test for creating new income and expense entries via the transaction modal.\n\n### Acceptance Criteria\n- Playwright test fills transaction form (amount, category, description, type, date).\n- Submits form and verifies new entry appears in the transaction table.\n- Confirms metric stat cards update accordingly."
+  },
+  {
+    "id": 15,
+    "title": "Playwright E2E Test: View Dashboard and Analytics Charts (Must use Playwright)",
+    "labels": ["e2e-test"],
+    "body": "### Objective\nPlaywright End-to-End Test verifying dashboard rendering, chart canvas elements, stat cards, and date filtering controls.\n\n### Acceptance Criteria\n- Playwright verifies all 4 stat cards render non-zero valid currency values.\n- Verifies Recharts SVG chart containers are visible and rendered.\n- Tests filter interactions (e.g. category filter, search query)."
+  },
+  {
+    "id": 16,
+    "title": "Playwright E2E Test: Trigger AI Category Suggestion (Must use Playwright)",
+    "labels": ["e2e-test"],
+    "body": "### Objective\nPlaywright End-to-End Test for the AI-assisted transaction entry workflow.\n\n### Acceptance Criteria\n- Open transaction dialog, type merchant name (e.g. 'Uber' or 'Whole Foods').\n- Verify AI suggestion pill appears and clicking it auto-fills the category.\n- Validate anomaly indicator warning when an exorbitant amount is entered."
+  },
+  {
+    "id": 17,
+    "title": "[Bug] Fix any UI/API bugs discovered during Playwright E2E runs",
+    "labels": ["user-test-bug"],
+    "body": "### Objective\nTrack, reproduce, and resolve any visual, functional, or timing bugs uncovered during Playwright E2E test runs.\n\n### Bug Protocol\n- qa-engineer.md reproduces bugs with failure trace.\n- pm.md grooms and prioritizes.\n- developer.md implements targeted fixes and verifies with tests."
+  },
+  {
+    "id": 18,
+    "title": "Database Migration: Swap Prisma from SQLite to PostgreSQL",
+    "labels": ["devops"],
+    "body": "### Objective\nMigrate persistence layer from SQLite to PostgreSQL for production readiness, preserving data models and relational constraints.\n\n### Acceptance Criteria\n- Prisma schema updated to support PostgreSQL (`provider = \"postgresql\"`).\n- Database connection pooling and environment switching supported.\n- Migration scripts verified with PostgreSQL instance."
+  },
+  {
+    "id": 19,
+    "title": "Containerization: Single multi-stage Dockerfile (Static Frontend + Backend)",
+    "labels": ["devops"],
+    "body": "### Objective\nAuthor optimized production multi-stage Dockerfile packaging Next.js frontend standalone build and Hono server into a minimal alpine/slim container.\n\n### Acceptance Criteria\n- Multi-stage build (deps, builder, runner).\n- Non-root user execution (`USER node`).\n- Image size optimized with standalone output and pruned dependencies."
+  },
+  {
+    "id": 20,
+    "title": "Docker Compose: Create docker-compose.yml (App + PostgreSQL DB)",
+    "labels": ["devops"],
+    "body": "### Objective\nCreate complete orchestration configuration in `docker-compose.yml` linking LedgerAI application with a healthy PostgreSQL container.\n\n### Acceptance Criteria\n- PostgreSQL service with persistent volume and health check.\n- Web app service with environment variables, ports mapped, and `depends_on` condition.\n- Single command boot via `docker-compose up -d`."
+  },
+  {
+    "id": 21,
+    "title": "Easy Deploy: Deploy to Render, Vercel, and Railway using Docker Compose ONLY",
+    "labels": ["devops"],
+    "body": "### Objective\nConfigure deployment specifications for Render, Vercel, and Railway using Docker Compose exclusively.\n\n### Protocol\n- Evaluate platform support for Docker Compose.\n- If a platform strictly forbids Compose (e.g. Vercel serverless limitations), document the exact error and limitation in `developer.md` and provide the closest Compose-equivalent fallback configuration (render.yaml, railway.json, vercel.json)."
+  },
+  {
+    "id": 22,
+    "title": "Production IaC: GCP Terraform OR AWS CloudFormation (STRICT Free-Tier limits)",
+    "labels": ["devops"],
+    "body": "### Objective\nProvision cloud infrastructure using Terraform (GCP) or CloudFormation (AWS) strictly adhering to Always-Free tier limits with hardcoded anti-billing safeguards.\n\n### Safeguards\n- GCP e2-micro instance (US regions: us-central1, us-east1, us-west1) or AWS t4g.nano/t2.micro.\n- Free disk allocation (<= 30GB standard persistent disk).\n- Anti-scale guardrails: max instances = 1, budget alert trigger at $0.01 spend to shutdown compute."
+  },
+  {
+    "id": 23,
+    "title": "CI/CD Pipeline: GitHub Actions to run Vitest, Playwright E2E, and Integration tests on every commit",
+    "labels": ["devops"],
+    "body": "### Objective\nConstruct `.github/workflows/ci-cd.yml` pipeline that triggers on push and pull_request to run linting, unit tests, integration tests, and Playwright E2E suite.\n\n### Acceptance Criteria\n- Matrix/caching for node_modules and Playwright browser binaries.\n- Run `npm run test` (Vitest) and `npx playwright test`.\n- Artifact upload for test reports on failure."
+  },
+  {
+    "id": 24,
+    "title": "CI/CD Pipeline: Auto-deploy to cloud environment on successful commit",
+    "labels": ["devops"],
+    "body": "### Objective\nExtend CI/CD workflow to trigger automated zero-downtime deployment to target cloud environment upon green test pass on main branch.\n\n### Acceptance Criteria\n- Deployment step gated by passing test suites.\n- Deployment webhook or cloud CLI trigger with secure credential secrets reference.\n- Post-deployment health-check probe."
+  },
+  {
+    "id": 25,
+    "title": "Final Documentation: README, Architecture diagram, and Iteration summary",
+    "labels": ["mvp"],
+    "body": "### Objective\nCompile comprehensive documentation suite including top-tier README.md, Mermaid system architecture diagram, API reference, and full development lifecycle summary.\n\n### Acceptance Criteria\n- High-impact README.md with live screenshots, badges, setup guide, and tech stack breakdown.\n- Mermaid architecture diagram illustrating Next.js, Hono, Prisma, and AI heuristics.\n- Verification that all 25 issues are verified and closed by QA Engineer."
+  }
+]

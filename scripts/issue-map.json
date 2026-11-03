@@ -1,0 +1,252 @@
+{
+  "1": {
+    "localId": 1,
+    "githubNumber": 1,
+    "title": "Setup Next.js, Tailwind, shadcn/ui, and Hono backend structure",
+    "labels": [
+      "mvp"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/1",
+    "status": "open"
+  },
+  "2": {
+    "localId": 2,
+    "githubNumber": 2,
+    "title": "Generate v0.dev style Fintech Dashboard layout (Sidebar, Stat Cards)",
+    "labels": [
+      "mvp"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/2",
+    "status": "open"
+  },
+  "3": {
+    "localId": 3,
+    "githubNumber": 3,
+    "title": "Build Transaction Table & Analytics Charts UI",
+    "labels": [
+      "mvp"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/3",
+    "status": "open"
+  },
+  "4": {
+    "localId": 4,
+    "githubNumber": 4,
+    "title": "Implement mock-service.ts for finance data",
+    "labels": [
+      "mvp"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/4",
+    "status": "open"
+  },
+  "5": {
+    "localId": 5,
+    "githubNumber": 5,
+    "title": "Define OpenAPI contract (openapi.yml)",
+    "labels": [
+      "mvp"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/5",
+    "status": "open"
+  },
+  "6": {
+    "localId": 6,
+    "githubNumber": 6,
+    "title": "Initialize Hono backend & In-Memory storage controllers",
+    "labels": [
+      "mvp"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/6",
+    "status": "open"
+  },
+  "7": {
+    "localId": 7,
+    "githubNumber": 7,
+    "title": "Setup Prisma schema with SQLite provider & seed 500 transactions",
+    "labels": [
+      "mvp"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/7",
+    "status": "open"
+  },
+  "8": {
+    "localId": 8,
+    "githubNumber": 8,
+    "title": "Connect Frontend to Hono Backend API (replace mocks)",
+    "labels": [
+      "mvp"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/8",
+    "status": "open"
+  },
+  "9": {
+    "localId": 9,
+    "githubNumber": 9,
+    "title": "Implement AI Categorization & Anomaly Detection API endpoint",
+    "labels": [
+      "mvp"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/9",
+    "status": "open"
+  },
+  "10": {
+    "localId": 10,
+    "githubNumber": 10,
+    "title": "Add loading states, error boundaries, and toast notifications",
+    "labels": [
+      "mvp"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/10",
+    "status": "open"
+  },
+  "11": {
+    "localId": 11,
+    "githubNumber": 11,
+    "title": "Write Hono Integration Tests (Vitest) for API endpoints",
+    "labels": [
+      "mvp"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/11",
+    "status": "open"
+  },
+  "12": {
+    "localId": 12,
+    "githubNumber": 12,
+    "title": "Implement User Authentication (NextAuth credentials slice)",
+    "labels": [
+      "mvp"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/12",
+    "status": "open"
+  },
+  "13": {
+    "localId": 13,
+    "githubNumber": 13,
+    "title": "Playwright E2E Test: User Login and Registration Flow (Must use Playwright)",
+    "labels": [
+      "e2e-test"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/13",
+    "status": "open"
+  },
+  "14": {
+    "localId": 14,
+    "githubNumber": 14,
+    "title": "Playwright E2E Test: Add Income and Expense Transactions (Must use Playwright)",
+    "labels": [
+      "e2e-test"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/14",
+    "status": "open"
+  },
+  "15": {
+    "localId": 15,
+    "githubNumber": 15,
+    "title": "Playwright E2E Test: View Dashboard and Analytics Charts (Must use Playwright)",
+    "labels": [
+      "e2e-test"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/15",
+    "status": "open"
+  },
+  "16": {
+    "localId": 16,
+    "githubNumber": 16,
+    "title": "Playwright E2E Test: Trigger AI Category Suggestion (Must use Playwright)",
+    "labels": [
+      "e2e-test"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/16",
+    "status": "open"
+  },
+  "17": {
+    "localId": 17,
+    "githubNumber": 17,
+    "title": "[Bug] Fix any UI/API bugs discovered during Playwright E2E runs",
+    "labels": [
+      "user-test-bug"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/17",
+    "status": "open"
+  },
+  "18": {
+    "localId": 18,
+    "githubNumber": 18,
+    "title": "Database Migration: Swap Prisma from SQLite to PostgreSQL",
+    "labels": [
+      "devops"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/18",
+    "status": "open"
+  },
+  "19": {
+    "localId": 19,
+    "githubNumber": 19,
+    "title": "Containerization: Single multi-stage Dockerfile (Static Frontend + Backend)",
+    "labels": [
+      "devops"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/19",
+    "status": "open"
+  },
+  "20": {
+    "localId": 20,
+    "githubNumber": 20,
+    "title": "Docker Compose: Create docker-compose.yml (App + PostgreSQL DB)",
+    "labels": [
+      "devops"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/20",
+    "status": "open"
+  },
+  "21": {
+    "localId": 21,
+    "githubNumber": 21,
+    "title": "Easy Deploy: Deploy to Render, Vercel, and Railway using Docker Compose ONLY",
+    "labels": [
+      "devops"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/21",
+    "status": "open"
+  },
+  "22": {
+    "localId": 22,
+    "githubNumber": 22,
+    "title": "Production IaC: GCP Terraform OR AWS CloudFormation (STRICT Free-Tier limits)",
+    "labels": [
+      "devops"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/22",
+    "status": "open"
+  },
+  "23": {
+    "localId": 23,
+    "githubNumber": 23,
+    "title": "CI/CD Pipeline: GitHub Actions to run Vitest, Playwright E2E, and Integration tests on every commit",
+    "labels": [
+      "devops"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/23",
+    "status": "open"
+  },
+  "24": {
+    "localId": 24,
+    "githubNumber": 24,
+    "title": "CI/CD Pipeline: Auto-deploy to cloud environment on successful commit",
+    "labels": [
+      "devops"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/24",
+    "status": "open"
+  },
+  "25": {
+    "localId": 25,
+    "githubNumber": 25,
+    "title": "Final Documentation: README, Architecture diagram, and Iteration summary",
+    "labels": [
+      "mvp"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/25",
+    "status": "open"
+  }
+}
