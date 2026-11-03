@@ -44,6 +44,3 @@ next-env.d.ts
 *.db-journal
 *.db-shm
 *.db-wal
-
-# GitHub Actions OAuth scope bypass guard
-.github/workflows/
