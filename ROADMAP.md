@@ -47,3 +47,4 @@ An AI-native personal finance management platform engineered for speed, privacy,
 - [ ] #23: [devops] GitHub Actions CI Pipeline (Lint, Vitest, Playwright E2E)
 - [ ] #24: [devops] Automated Cloud CD Deployment Pipeline
 - [ ] #25: [mvp] Final Documentation, Architecture Diagrams, and Milestone Summary
+

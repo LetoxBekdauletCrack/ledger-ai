@@ -56,3 +56,4 @@
 - CI/CD automated via GitHub Actions with testing gating automated deployments.
 
 **QA**: Ready to proceed. Let's document our respective role files (`pm.md`, `developer.md`, `qa-engineer.md`) and launch the backlog.
+

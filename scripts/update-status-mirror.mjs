@@ -18,3 +18,4 @@ for (const id of Object.keys(issues).sort((a, b) => Number(a) - Number(b))) {
 
 writeFileSync(resolve('GITHUB_ISSUES.md'), md, 'utf-8');
 console.log('GITHUB_ISSUES.md updated successfully.');
+

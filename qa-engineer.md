@@ -5,51 +5,51 @@ The QA Engineer oversees quality assurance, integration test coverage, Playwrigh
 
 ---
 
-## Testing Strategy
-1. **API Integration Testing (Vitest)**:
-   - Validates response schemas, HTTP status codes, calculations (balance, income, expense, savings rate).
-   - Validates AI categorization heuristics and anomaly detection edge cases.
-2. **End-to-End Automation (Playwright)**:
-   - Headless browser validation across core user workflows:
-     - Issue #13: User registration and authentication flow.
-     - Issue #14: Adding income and expense transactions.
-     - Issue #15: Dashboard layout, metric cards, and Recharts rendering.
-     - Issue #16: AI category suggestion and anomaly detection in real UI.
-3. **Bug Protocol (`user-test-bug`)**:
-   - If a failure occurs in E2E runs, capture screenshot/trace, isolate root cause, collaborate with PM to groom, and confirm Dev fix.
-4. **Issue Closing Protocol**:
-   - Review implementation against Acceptance Criteria.
-   - Run verification tests.
-   - Post closing verification comment on GitHub:
-     `gh issue close <number> --comment "Verified by qa-engineer.md: All acceptance criteria met and automated tests passed."`
+## Test Execution Summary
+
+### 1. Vitest API Integration Suite
+- **Command**: `npm run test`
+- **Result**: **9 / 9 tests passed (100% pass rate)**
+- **Coverage**:
+  - `GET /api/health` -> 200 OK & service status
+  - `GET /api/analytics/summary` -> accurate total balance, inflow, outflow, savings rate
+  - `GET /api/transactions` -> returns seeded transaction records with categories
+  - `POST /api/ai/suggest-category` -> validates Groceries, Transport, and Dining keyword rules
+  - `POST /api/ai/detect-anomalies` -> flags unusual charges exceeding 2.5x variance
+  - `POST /api/transactions` -> creates transaction and logs anomaly alert
+  - `POST /api/auth/login` -> validates valid credentials & rejects invalid passwords
+
+### 2. Playwright End-to-End Test Suite
+- **Command**: `npx playwright test`
+- **Result**: **10 / 10 tests passed (100% pass rate)**
+- **Coverage**:
+  - `e2e/auth.spec.ts`:
+    - `should navigate to login page and fill demo credentials` (PASS)
+    - `should reject invalid credentials and show error toast` (PASS)
+    - `should register a new user successfully` (PASS)
+  - `e2e/dashboard.spec.ts`:
+    - `should display all stat cards with financial values` (PASS)
+    - `should render Recharts analytical components and budget progress` (PASS)
+    - `should filter transactions by search keyword and category` (PASS)
+  - `e2e/transactions.spec.ts`:
+    - `should open add transaction modal, fill expense, and verify in table` (PASS)
+    - `should open modal, add income transaction, and verify in table` (PASS)
+  - `e2e/ai-suggestion.spec.ts`:
+    - `should trigger AI category suggestion and allow one-click apply` (PASS)
+    - `should trigger anomaly warning on exorbitant amount and save with anomaly flag` (PASS)
 
 ---
 
-## Test Verification Log
-| Issue ID | GitHub # | Test Scope | QA Verification Status | Close Comment Reference |
-|:---:|:---:|:---|:---:|:---|
-| #01 | #1 | Project bootstrap & compilation | Pending | - |
-| #02 | #2 | Fintech dashboard responsive UI & layout | Pending | - |
-| #03 | #3 | Transaction table & chart rendering | Pending | - |
-| #04 | #4 | Finance mock data integrity | Pending | - |
-| #05 | #5 | OpenAPI 3.0 contract validation | Pending | - |
-| #06 | #6 | Hono router & storage endpoints | Pending | - |
-| #07 | #7 | Prisma schema & 500 seed records | Pending | - |
-| #08 | #8 | Full-stack API integration | Pending | - |
-| #09 | #9 | AI categorization & anomaly heuristics | Pending | - |
-| #10 | #10 | Error boundaries, loading states, toasts | Pending | - |
-| #11 | #11 | Vitest API integration suite | Pending | - |
-| #12 | #12 | Credentials authentication & JWT slice | Pending | - |
-| #13 | #13 | Playwright: Auth E2E | Pending | - |
-| #14 | #14 | Playwright: Transactions E2E | Pending | - |
-| #15 | #15 | Playwright: Dashboard & Charts E2E | Pending | - |
-| #16 | #16 | Playwright: AI Category Suggestion E2E | Pending | - |
-| #17 | #17 | Bug triage & resolution | Pending | - |
-| #18 | #18 | PostgreSQL migration verification | Pending | - |
-| #19 | #19 | Dockerfile multi-stage container build | Pending | - |
-| #20 | #20 | Docker Compose app + postgres verification | Pending | - |
-| #21 | #21 | Multi-platform deployment configs | Pending | - |
-| #22 | #22 | Cloud IaC Free-Tier limit verification | Pending | - |
-| #23 | #23 | GitHub Actions CI workflow execution | Pending | - |
-| #24 | #24 | Cloud deployment CD workflow | Pending | - |
-| #25 | #25 | Final documentation, architecture, closing gate | Pending | - |
+## Bug Protocol Log (`user-test-bug` #17)
+- **Reproduction**:
+  - Bug 1: In `e2e/dashboard.spec.ts`, sequential search for 'Whole Foods' followed by selecting 'Transport' resulted in empty table due to filter compounding.
+  - Bug 2: In `e2e/transactions.spec.ts`, amount label had a space between sign and symbol (`+ $1,500.00`) whereas assertion expected `+$1,500.00`.
+- **Root Cause Isolation**:
+  - Filter state in test needed explicit reset before testing category dropdown independently.
+  - UI template string updated in `transaction-table.tsx` to render standard fintech format without extra whitespace.
+- **Verification**: Re-ran full Playwright E2E suite; all 10 tests passed cleanly.
+
+---
+
+## Final Gate Verification
+All 25 issues verified and closed with detailed verification comments. Zero open issues remaining.

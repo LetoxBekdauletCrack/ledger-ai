@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: ledger-ai-app
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: free
+    region: oregon
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ledger-ai-postgres
+          property: connectionString
+      - key: NEXTAUTH_SECRET
+        generateValue: true
+
+databases:
+  - name: ledger-ai-postgres
+    plan: free
+    region: oregon
+    databaseName: ledger_ai
+    user: ledger
+

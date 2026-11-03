@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: ledger-ai-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ledger}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ledgerpass}
+      POSTGRES_DB: ${POSTGRES_DB:-ledger_ai}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-ledger} -d ${POSTGRES_DB:-ledger_ai}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ledger-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ledger-ai-app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-ledger}:${POSTGRES_PASSWORD:-ledgerpass}@postgres:5432/${POSTGRES_DB:-ledger_ai}?schema=public
+      PORT: 3000
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-super-secret-ledgerai-token-key-32charsmin}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ledger-network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  ledger-network:
+    driver: bridge
+

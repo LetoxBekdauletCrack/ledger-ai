@@ -48,3 +48,4 @@ for (const issue of rawIssues) {
 
 writeFileSync(mapPath, JSON.stringify(issueMap, null, 2), 'utf-8');
 console.log(`Saved issue map to ${mapPath}`);
+

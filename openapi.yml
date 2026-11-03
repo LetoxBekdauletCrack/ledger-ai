@@ -1,0 +1,320 @@
+openapi: 3.0.3
+info:
+  title: LedgerAI API
+  description: High-performance B2C Personal Finance Analyzer REST API specification powered by Hono.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api
+    description: Integrated Next.js / Hono Dev Server
+  - url: http://localhost:3001/api
+    description: Standalone Hono Microservice Server
+
+paths:
+  /health:
+    get:
+      summary: Health check probe
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ok"
+                  timestamp:
+                    type: string
+
+  /auth/register:
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password, name]
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  minLength: 6
+                name:
+                  type: string
+      responses:
+        '201':
+          description: User registered successfully
+        '400':
+          description: Validation error or user already exists
+
+  /auth/login:
+    post:
+      summary: Authenticate user credentials
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Successful authentication
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  user:
+                    type: object
+        '401':
+          description: Invalid credentials
+
+  /transactions:
+    get:
+      summary: List user transactions
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [INCOME, EXPENSE]
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Array of transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+    post:
+      summary: Create a new manual transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionInput'
+      responses:
+        '201':
+          description: Transaction created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+
+  /transactions/{id}:
+    delete:
+      summary: Delete transaction
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Transaction deleted
+
+  /analytics/summary:
+    get:
+      summary: Retrieve financial overview metrics and chart aggregates
+      responses:
+        '200':
+          description: Analytics overview
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsSummary'
+
+  /budgets:
+    get:
+      summary: Get all category budgets
+      responses:
+        '200':
+          description: Category budget allocations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Budget'
+
+  /ai/suggest-category:
+    post:
+      summary: Suggest category based on merchant and description
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [merchant]
+              properties:
+                merchant:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '200':
+          description: Suggested category with confidence
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  suggestedCategory:
+                    type: string
+                  confidence:
+                    type: number
+                  ruleMatched:
+                    type: string
+
+  /ai/detect-anomalies:
+    post:
+      summary: Run anomaly detection on a single transaction or entire set
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                category:
+                  type: string
+                type:
+                  type: string
+      responses:
+        '200':
+          description: Anomaly detection verdict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  isAnomaly:
+                    type: boolean
+                  reason:
+                    type: string
+                  zScore:
+                    type: number
+
+components:
+  schemas:
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: string
+        amount:
+          type: number
+        type:
+          type: string
+          enum: [INCOME, EXPENSE]
+        category:
+          type: string
+        merchant:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+        status:
+          type: string
+        isAnomaly:
+          type: boolean
+        anomalyReason:
+          type: string
+        createdAt:
+          type: string
+
+    TransactionInput:
+      type: object
+      required: [amount, type, category, merchant, date]
+      properties:
+        amount:
+          type: number
+        type:
+          type: string
+          enum: [INCOME, EXPENSE]
+        category:
+          type: string
+        merchant:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+
+    Budget:
+      type: object
+      properties:
+        id:
+          type: string
+        category:
+          type: string
+        monthlyLimit:
+          type: number
+        spent:
+          type: number
+
+    AnalyticsSummary:
+      type: object
+      properties:
+        totalBalance:
+          type: number
+        monthlyInflow:
+          type: number
+        monthlyOutflow:
+          type: number
+        netSavingsRate:
+          type: number
+        anomalyCount:
+          type: number
+        recentTrends:
+          type: array
+          items:
+            type: object
+            properties:
+              month:
+                type: string
+              income:
+                type: number
+              expense:
+                type: number
+        categoryBreakdown:
+          type: array
+          items:
+            type: object
+            properties:
+              category:
+                type: string
+              amount:
+                type: number
+              percentage:
+                type: number
+              color:
+                type: string
+

@@ -1,0 +1,73 @@
+// Production PostgreSQL Prisma Schema for LedgerAI
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(uuid())
+  email        String        @unique
+  password     String
+  name         String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  transactions Transaction[]
+  budgets      Budget[]
+}
+
+model Transaction {
+  id            String        @id @default(uuid())
+  userId        String
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amount        Float
+  type          String        // "INCOME" | "EXPENSE"
+  category      String
+  merchant      String
+  description   String?
+  date          DateTime
+  status        String        @default("POSTED") // "POSTED" | "PENDING"
+  isAnomaly     Boolean       @default(false)
+  anomalyReason String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  alerts        AnomalyAlert[]
+
+  @@index([userId, date])
+  @@index([category])
+}
+
+model Budget {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category     String
+  monthlyLimit Float
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([userId, category])
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  color     String
+  type      String   // "INCOME" | "EXPENSE"
+  createdAt DateTime @default(now())
+}
+
+model AnomalyAlert {
+  id            String      @id @default(uuid())
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  severity      String      @default("MEDIUM") // "LOW" | "MEDIUM" | "HIGH"
+  message       String
+  resolved      Boolean     @default(false)
+  createdAt     DateTime    @default(now())
+}
+
