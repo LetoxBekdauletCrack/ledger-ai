@@ -248,5 +248,65 @@
     ],
     "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/25",
     "status": "closed"
+  },
+  "26": {
+    "localId": 26,
+    "githubNumber": 26,
+    "title": "Separate development and production environments",
+    "labels": [
+      "devops"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/26",
+    "status": "closed"
+  },
+  "27": {
+    "localId": 27,
+    "githubNumber": 27,
+    "title": "Manual CI/CD promotion trigger (dev → prod)",
+    "labels": [
+      "devops"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/27",
+    "status": "closed"
+  },
+  "28": {
+    "localId": 28,
+    "githubNumber": 28,
+    "title": "Instrument backend with OpenTelemetry (metrics, traces, logs)",
+    "labels": [
+      "observability"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/28",
+    "status": "closed"
+  },
+  "29": {
+    "localId": 29,
+    "githubNumber": 29,
+    "title": "Define application-specific metrics + Grafana dashboard",
+    "labels": [
+      "observability"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/29",
+    "status": "closed"
+  },
+  "30": {
+    "localId": 30,
+    "githubNumber": 30,
+    "title": "Alert rules on application metrics",
+    "labels": [
+      "observability"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/30",
+    "status": "closed"
+  },
+  "31": {
+    "localId": 31,
+    "githubNumber": 31,
+    "title": "AI agent as on-call responder for alerts",
+    "labels": [
+      "observability"
+    ],
+    "url": "https://github.com/LetoxBekdauletCrack/ledger-ai/issues/31",
+    "status": "closed"
   }
 }

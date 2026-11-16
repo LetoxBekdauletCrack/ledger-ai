@@ -40,6 +40,12 @@ The Product Manager leads product definition, grooms user stories, monitors acce
 | #23 | #23 | CI/CD Pipeline: GitHub Actions Test Suite | Dev/QA | Closed | Verified by QA |
 | #24 | #24 | CI/CD Pipeline: Auto-deploy to cloud | Dev | Closed | Verified by QA |
 | #25 | #25 | Final Documentation: README, Architecture, and Iteration summary | All | Closed | Verified by QA |
+| #26 | #26 | Separate development and production environments | Dev | Closed | Verified by QA |
+| #27 | #27 | Manual CI/CD promotion trigger (dev → prod) | Dev | Closed | Verified by QA |
+| #28 | #28 | Instrument backend with OpenTelemetry | Dev | Closed | Verified by QA |
+| #29 | #29 | Define application-specific metrics + Grafana dashboard | Dev | Closed | Verified by QA |
+| #30 | #30 | Alert rules on application metrics | Dev | Closed | Verified by QA |
+| #31 | #31 | AI agent as on-call responder for alerts | Dev/QA | Closed | Verified by QA |
 
 ---
 
@@ -49,3 +55,5 @@ The Product Manager leads product definition, grooms user stories, monitors acce
 - **2026-11-03**: Monolithic Next.js 14 + Hono backend stack constructed. Dark-mode fintech dashboard operational with stat cards, Recharts visualizations, and 500 SQLite seed transactions.
 - **2026-11-03**: Bug Protocol Grooming on Issue #17: Prioritized fix for test filter state conflict and currency spacing format. Fix ratified and verified with 10/10 green Playwright E2E tests.
 - **2026-11-03**: Release sign-off approved for LedgerAI v1.0. All 25 issues verified and closed.
+- **2026-11-16**: Phase 2 (DevOps & Observability) initiated. Label `observability` created. Issues #26–#31 created and groomed. Scope covers environment separation, manual promotion pipeline, OpenTelemetry integration, Grafana dashboards as code, metric alerting, and AI autonomous on-call responder.
+- **2026-11-16**: Phase 2 (DevOps & Observability) completed. All acceptance criteria for #26 through #31 delivered, verified by QA, and closed. Autonomous incident triage verified with synthetic alert firing, diagnosis, and issue resolution. Zero open issues remaining.

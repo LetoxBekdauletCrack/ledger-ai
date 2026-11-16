@@ -1,17 +1,21 @@
 import { execSync } from 'node:child_process';
 import { writeFileSync } from 'node:fs';
 
-const raw = execSync('gh issue list --state all --limit 50 --json number,title,labels,state,url', {
+const raw = execSync('gh issue list --state all --limit 100 --json number,title,labels,state,url', {
   encoding: 'utf-8',
 });
 
 const issues = JSON.parse(raw);
 issues.sort((a, b) => a.number - b.number);
 
+const openCount = issues.filter((i) => i.state === 'OPEN').length;
+const closedCount = issues.filter((i) => i.state === 'CLOSED').length;
+const totalCount = issues.length;
+
 let md = `# GitHub Issues Live Status Mirror\n\n`;
 md += `**Repository**: [LetoxBekdauletCrack/ledger-ai](https://github.com/LetoxBekdauletCrack/ledger-ai)\n`;
 md += `**Last Synchronized**: ${new Date().toISOString()}\n`;
-md += `**Total Issues**: 25 | **Open**: 0 | **Closed**: 25 (100% Resolved)\n\n`;
+md += `**Total Issues**: ${totalCount} | **Open**: ${openCount} | **Closed**: ${closedCount} (${openCount === 0 ? '100% Resolved' : `${Math.round((closedCount / totalCount) * 100)}% Resolved`})\n\n`;
 md += `| Issue # | Title | Label(s) | Status | Link |\n`;
 md += `| :---: | :--- | :---: | :---: | :--- |\n`;
 

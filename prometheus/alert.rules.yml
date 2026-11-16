@@ -1,0 +1,38 @@
+groups:
+  - name: ledgerai_alerts
+    rules:
+      - alert: HighErrorRate
+        expr: (sum(rate(ledgerai_http_request_duration_seconds_count{status_code=~"5.."}[5m])) / sum(rate(ledgerai_http_request_duration_seconds_count[5m]))) > 0.05
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "LedgerAI High HTTP 5xx Error Rate (>5%)"
+          description: "HTTP 5xx error rate is currently {{ $value | humanizePercentage }} over the last 5 minutes."
+
+      - alert: HighLatencyP95
+        expr: histogram_quantile(0.95, sum(rate(ledgerai_http_request_duration_seconds_bucket[5m])) by (le)) > 1.0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "LedgerAI High Latency (p95 > 1s)"
+          description: "95th percentile latency is {{ $value }}s on API requests."
+
+      - alert: AnomalyDetectionSpike
+        expr: sum(rate(ledgerai_anomalies_detected_total[5m])) > 0.1
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Spike in Financial Anomalies Detected"
+          description: "Multiple spending anomalies flagged in rapid succession."
+
+      - alert: LedgerAIServiceDown
+        expr: up{job="ledgerai-app"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "LedgerAI Application Instance Down"
+          description: "Prometheus cannot scrape LedgerAI app endpoint."

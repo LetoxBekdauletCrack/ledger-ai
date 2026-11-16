@@ -1,8 +1,8 @@
 # GitHub Issues Live Status Mirror
 
 **Repository**: [LetoxBekdauletCrack/ledger-ai](https://github.com/LetoxBekdauletCrack/ledger-ai)
-**Last Synchronized**: 2026-11-03T02:24:31.671Z
-**Total Issues**: 25 | **Open**: 0 | **Closed**: 25 (100% Resolved)
+**Last Synchronized**: 2026-11-16T14:30:45.281Z
+**Total Issues**: 32 | **Open**: 0 | **Closed**: 32 (100% Resolved)
 
 | Issue # | Title | Label(s) | Status | Link |
 | :---: | :--- | :---: | :---: | :--- |
@@ -31,3 +31,10 @@
 | #23 | CI/CD Pipeline: GitHub Actions to run Vitest, Playwright E2E, and Integration tests on every commit | `devops` | ✅ Closed | [View on GitHub](https://github.com/LetoxBekdauletCrack/ledger-ai/issues/23) |
 | #24 | CI/CD Pipeline: Auto-deploy to cloud environment on successful commit | `devops` | ✅ Closed | [View on GitHub](https://github.com/LetoxBekdauletCrack/ledger-ai/issues/24) |
 | #25 | Final Documentation: README, Architecture diagram, and Iteration summary | `mvp` | ✅ Closed | [View on GitHub](https://github.com/LetoxBekdauletCrack/ledger-ai/issues/25) |
+| #26 | Separate development and production environments | `devops` | ✅ Closed | [View on GitHub](https://github.com/LetoxBekdauletCrack/ledger-ai/issues/26) |
+| #27 | Manual CI/CD promotion trigger (dev → prod) | `devops` | ✅ Closed | [View on GitHub](https://github.com/LetoxBekdauletCrack/ledger-ai/issues/27) |
+| #28 | Instrument backend with OpenTelemetry (metrics, traces, logs) | `observability` | ✅ Closed | [View on GitHub](https://github.com/LetoxBekdauletCrack/ledger-ai/issues/28) |
+| #29 | Define application-specific metrics + Grafana dashboard | `observability` | ✅ Closed | [View on GitHub](https://github.com/LetoxBekdauletCrack/ledger-ai/issues/29) |
+| #30 | Alert rules on application metrics | `observability` | ✅ Closed | [View on GitHub](https://github.com/LetoxBekdauletCrack/ledger-ai/issues/30) |
+| #31 | AI agent as on-call responder for alerts | `observability` | ✅ Closed | [View on GitHub](https://github.com/LetoxBekdauletCrack/ledger-ai/issues/31) |
+| #32 | INCIDENT: HighLatencyP95 (INC-1794837945521) | `observability` | ✅ Closed | [View on GitHub](https://github.com/LetoxBekdauletCrack/ledger-ai/issues/32) |

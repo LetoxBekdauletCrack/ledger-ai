@@ -1,0 +1,47 @@
+version: '3.8'
+
+# Production Overlay for LedgerAI
+# Run with: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+services:
+  postgres:
+    container_name: ledger-ai-postgres-prod
+    restart: always
+    environment:
+      POSTGRES_DB: ledger_ai_prod
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+
+  app:
+    container_name: ledger-ai-prod
+    restart: always
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-ledger}:${POSTGRES_PASSWORD:-ledgerpass}@postgres:5432/ledger_ai_prod?schema=public&sslmode=prefer
+      ENABLE_AUTO_SEED: "false"
+      OTEL_SERVICE_NAME: ledger-ai-prod
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  postgres_prod_data:
+    driver: local

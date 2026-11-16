@@ -51,5 +51,53 @@ The QA Engineer oversees quality assurance, integration test coverage, Playwrigh
 
 ---
 
-## Final Gate Verification
+## Final Gate Verification (Phase 1)
 All 25 issues verified and closed with detailed verification comments. Zero open issues remaining.
+
+---
+
+## Phase 2: DevOps & Observability QA Verification Plan
+
+### Test Matrix for Issues #26–#31
+1. **Environment Separation (#26)**:
+   - Verify `docker compose config` on `docker-compose.yml` (dev).
+   - Verify `docker compose config` on `docker-compose.yml` + `docker-compose.prod.yml` overlay.
+   - Verify distinct `.env.dev` and `.env.prod.example`.
+2. **Promotion Pipeline (#27)**:
+   - Validate `.github/workflows/promote.yml` syntax, parameters, and environment approval rule.
+3. **OpenTelemetry Core (#28)**:
+   - Verify OTel initialization, collector config routing (OTLP -> Prometheus, Tempo, Loki), and trace generation.
+4. **Application Metrics & Dashboard (#29)**:
+   - Scrape `/api/metrics` Prometheus endpoint to verify custom metric series.
+   - Validate Grafana datasources and dashboard JSON definition.
+5. **Alert Rules (#30)**:
+   - Validate Prometheus alert rule definitions (high error rate, latency p95, anomaly spikes, probe failure).
+   - Test synthetic alert dispatch to webhook.
+6. **AI On-Call Responder (#31)**:
+   - Verify webhook receiving alert payload, creating GitHub incident issue, executing autonomous diagnosis, and posting root cause triage comment.
+   - Verify incident logging in `incidents.md`.
+
+---
+
+## Phase 2: DevOps & Observability QA Verification & Sign-off
+
+### Observability E2E Loop Test Results
+- **Step 1: Traffic & Metrics Verification (#28, #29)**
+  - Fired API traffic across transactions, suggestions, and summary endpoints.
+  - Scraped `GET /api/metrics`: Verified Prometheus counters `ledgerai_transactions_total`, `ledgerai_ai_suggestions_total`, `ledgerai_anomalies_detected_total`, histogram `ledgerai_http_request_duration_seconds`, and gauge `ledgerai_active_users`.
+  - Validated Grafana datasource provisioning and `grafana/dashboards/ledgerai-overview.json` schema.
+- **Step 2: Alert Rules & Webhook Verification (#30)**
+  - Validated Prometheus rule definitions in `prometheus/alert.rules.yml` for SLA latency (>1s), error rate (>5%), and anomaly clusters.
+  - Executed synthetic alert dispatch via `scripts/test-alert.mjs` delivering `HighLatencyP95` payload to `/api/alerts/webhook` (HTTP 200 OK).
+- **Step 3: Autonomous AI On-Call Triage Verification (#31)**
+  - Webhook triggered `triageIncident()` in `src/server/incident-service.ts`.
+  - Diagnostic queries extracted simulated Prometheus query and Loki error log telemetry.
+  - Autonomous root-cause hypothesis generated: *"Full table scans on unindexed category aggregation during peak analytics queries combined with Prisma connection pool saturation."*
+  - Recommended remediation steps formulated (indexing, caching TTL, pool sizing).
+  - GitHub incident issue created with AI triage comment and verified resolved (Incident issue #32 closed).
+  - Incident logged in `incidents.md` under ID `INC-1794837945521`.
+
+### Final Gate Verification (Phase 2)
+- All 6 Phase 2 issues (#26 through #31) + Incident Issue #32 verified and closed with QA verification comments.
+- Command verification: `gh issue list --state open` output is empty.
+- **Zero open issues remaining across the entire repository.** Quality gate passed.

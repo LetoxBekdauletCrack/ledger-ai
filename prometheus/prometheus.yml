@@ -1,0 +1,25 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  - /etc/prometheus/alert.rules.yml
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: []
+
+scrape_configs:
+  - job_name: 'ledgerai-app'
+    metrics_path: '/api/metrics'
+    static_configs:
+      - targets: ['app:3000', 'host.docker.internal:3000']
+
+  - job_name: 'otel-collector'
+    static_configs:
+      - targets: ['otel-collector:8889']
+
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']

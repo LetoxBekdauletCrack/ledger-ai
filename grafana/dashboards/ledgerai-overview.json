@@ -1,0 +1,163 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "id": 100,
+      "title": "Business Performance & Financial Activity",
+      "type": "row"
+    },
+    {
+      "id": 1,
+      "title": "Total Transactions Logged",
+      "type": "stat",
+      "gridPos": { "h": 5, "w": 6, "x": 0, "y": 1 },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "sum(ledgerai_transactions_total) or vector(0)",
+          "legendFormat": "Total Transactions"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "blue", "value": 50 }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 2,
+      "title": "Anomalies Flagged",
+      "type": "stat",
+      "gridPos": { "h": 5, "w": 6, "x": 6, "y": 1 },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "sum(ledgerai_anomalies_detected_total) or vector(0)",
+          "legendFormat": "Anomalies"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "red", "value": 5 }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 3,
+      "title": "AI Category Suggestions",
+      "type": "stat",
+      "gridPos": { "h": 5, "w": 6, "x": 12, "y": 1 },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "sum(ledgerai_ai_suggestions_total) or vector(0)",
+          "legendFormat": "AI Suggestions"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" }
+        }
+      }
+    },
+    {
+      "id": 4,
+      "title": "Active Users",
+      "type": "stat",
+      "gridPos": { "h": 5, "w": 6, "x": 18, "y": 1 },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "ledgerai_active_users or vector(1)",
+          "legendFormat": "Active Users"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 6 },
+      "id": 101,
+      "title": "Application SLA & Latency Percentiles",
+      "type": "row"
+    },
+    {
+      "id": 5,
+      "title": "HTTP Latency (p95 & p99)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 7 },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(ledgerai_http_request_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "p95 Latency"
+        },
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(ledgerai_http_request_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "p99 Latency"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        }
+      }
+    },
+    {
+      "id": 6,
+      "title": "HTTP Request Volume by Status Code",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 7 },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "sum by (status_code) (rate(ledgerai_http_request_duration_seconds_count[5m]))",
+          "legendFormat": "Status {{status_code}}"
+        }
+      ]
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["ledgerai", "fintech", "observability"],
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "title": "LedgerAI — Application & Business Observability",
+  "uid": "ledgerai-overview",
+  "version": 1
+}

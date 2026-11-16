@@ -1,0 +1,20 @@
+apiVersion: 1
+
+contactPoints:
+  - orgId: 1
+    name: ledgerai-ai-oncall-webhook
+    receivers:
+      - uid: ledgerai-webhook-receiver
+        type: webhook
+        settings:
+          url: http://app:3000/api/alerts/webhook
+          httpMethod: POST
+        disableResolveMessage: false
+
+policies:
+  - orgId: 1
+    receiver: ledgerai-ai-oncall-webhook
+    group_by: ['alertname', 'severity']
+    group_wait: 10s
+    group_interval: 1m
+    repeat_interval: 4h

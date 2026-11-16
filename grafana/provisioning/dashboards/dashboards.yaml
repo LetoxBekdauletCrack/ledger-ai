@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: 'LedgerAI Dashboards'
+    orgId: 1
+    folder: 'LedgerAI Observability'
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /var/lib/grafana/dashboards

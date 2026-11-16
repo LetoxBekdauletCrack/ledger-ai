@@ -148,6 +148,42 @@
     "title": "Final Documentation: README, Architecture diagram, and Iteration summary",
     "labels": ["mvp"],
     "body": "### Objective\nCompile comprehensive documentation suite including top-tier README.md, Mermaid system architecture diagram, API reference, and full development lifecycle summary.\n\n### Acceptance Criteria\n- High-impact README.md with live screenshots, badges, setup guide, and tech stack breakdown.\n- Mermaid architecture diagram illustrating Next.js, Hono, Prisma, and AI heuristics.\n- Verification that all 25 issues are verified and closed by QA Engineer."
+  },
+  {
+    "id": 26,
+    "title": "Separate development and production environments",
+    "labels": ["devops"],
+    "body": "### Objective\nEstablish clean architectural separation between development and production environments for LedgerAI.\n\n### Acceptance Criteria\n- docker-compose.yml configured for development (hot reloading, dev database).\n- docker-compose.prod.yml configured as production overlay (restart policies: always, resource limits, no sample seeding, prod env vars).\n- .env.dev and .env.prod.example configurations with distinct DATABASE_URL settings.\n- Dual deployment targets/services (dev and prod) documented in developer.md.\n- docker compose up boots dev environment; docker compose -f docker-compose.yml -f docker-compose.prod.yml up boots prod environment cleanly."
+  },
+  {
+    "id": 27,
+    "title": "Manual CI/CD promotion trigger (dev → prod)",
+    "labels": ["devops"],
+    "body": "### Objective\nImplement controlled manual release promotion pipeline promoting validated dev container builds into production.\n\n### Acceptance Criteria\n- .github/workflows/promote.yml with workflow_dispatch trigger accepting image_tag or sha inputs.\n- Protected GitHub Environment \"production\" requiring manual reviewer approval gate.\n- Promotion job re-tags GHCR image dev-<sha> to prod-<sha> and dispatches deployment to prod target.\n- Manual promotion execution logged in developer.md."
+  },
+  {
+    "id": 28,
+    "title": "Instrument backend with OpenTelemetry (metrics, traces, logs)",
+    "labels": ["observability"],
+    "body": "### Objective\nInstrument Hono backend with OpenTelemetry SDK for distributed tracing, metrics, and structured log export.\n\n### Acceptance Criteria\n- @opentelemetry/sdk-node + HTTP auto-instrumentation + manual Prisma spans configured in backend.\n- OpenTelemetry collector configuration (otel-collector-config.yaml) routing metrics to Prometheus, traces to Tempo, and logs to Loki.\n- Docker Compose includes OTel Collector, Prometheus, Tempo, and Loki services.\n- API traffic generates visible traces in Tempo, logs in Loki, and scrapeable metrics in Prometheus."
+  },
+  {
+    "id": 29,
+    "title": "Define application-specific metrics + Grafana dashboard",
+    "labels": ["observability"],
+    "body": "### Objective\nInstrument business domain metrics in LedgerAI and provision a comprehensive Grafana dashboard as code.\n\n### Acceptance Criteria\n- Custom Prometheus metrics registered:\n  - ledgerai_transactions_total{type}\n  - ledgerai_ai_suggestions_total\n  - ledgerai_anomalies_detected_total\n  - ledgerai_http_request_duration_seconds\n  - ledgerai_active_users\n- Grafana provisioned as code (grafana/provisioning/datasources and grafana/provisioning/dashboards).\n- Pre-built dashboard JSON rendering financial activity, latency percentiles, error rates, and AI anomaly rates.\n- Verified dashboard rendering real data on localhost after seeded traffic."
+  },
+  {
+    "id": 30,
+    "title": "Alert rules on application metrics",
+    "labels": ["observability"],
+    "body": "### Objective\nDefine automated alert rules on critical application health and business metrics in Prometheus/Grafana.\n\n### Acceptance Criteria\n- Alert rules configured:\n  - Error rate > 5% over 5m\n  - p95 HTTP latency > 1s\n  - Spike in ledgerai_anomalies_detected_total\n  - No-data / service down rule\n- Contact point: webhook POSTing alert notification payload to the AI on-call responder endpoint.\n- Synthetic alert successfully reaches the webhook receiver."
+  },
+  {
+    "id": 31,
+    "title": "AI agent as on-call responder for alerts",
+    "labels": ["observability"],
+    "body": "### Objective\nImplement an autonomous AI agent on-call responder triggered by alert webhooks to triage incidents and generate root-cause analyses.\n\n### Acceptance Criteria\n- Webhook receiver endpoint (/api/alerts/webhook) receiving Grafana/Prometheus alert JSON.\n- Creates or updates incident tracking issue INCIDENT: <alertname>.\n- Executes triage routine querying Loki logs and Prometheus metrics.\n- Formulates root-cause hypothesis and remediation steps as issue comment.\n- Logs incident records in incidents.md and qa-engineer.md.\n- Simulated alert produces verified triage output in incident issue."
   }
 ]
 

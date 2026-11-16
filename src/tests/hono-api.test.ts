@@ -113,5 +113,33 @@ describe('Hono API Integration Tests', () => {
     });
     expect(res.status).toBe(401);
   });
+
+  it('GET /api/metrics exposes Prometheus format metrics', async () => {
+    const res = await app.request('/api/metrics');
+    expect(res.status).toBe(200);
+    const text = await res.text();
+    expect(text).toContain('ledgerai_transactions_total');
+    expect(text).toContain('ledgerai_http_request_duration_seconds');
+    expect(text).toContain('ledgerai_active_users');
+  });
+
+  it('POST /api/alerts/webhook processes alert and returns AI on-call triage', async () => {
+    const res = await app.request('/api/alerts/webhook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        alertname: 'HighLatencyP95',
+        severity: 'warning',
+        summary: 'P95 latency exceeded 1.0s on financial transaction endpoints',
+        value: '1.24s',
+      }),
+    });
+    expect(res.status).toBe(200);
+    const body = await res.json();
+    expect(body.status).toBe('success');
+    expect(body.triage).toHaveProperty('rootCauseHypothesis');
+    expect(body.triage.remediationSteps.length).toBeGreaterThan(0);
+    expect(body.triage.rootCauseHypothesis).toContain('analytics');
+  });
 });
 
